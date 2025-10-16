@@ -29,6 +29,7 @@
         //"custom/gammastep"
     ],
     "modules-right": [
+        "hyprland/language",
         //"pulseaudio",
         "wireplumber",
         "custom/screenshot_t",
@@ -41,6 +42,12 @@
     // Modules
     // -------------------------------------------------------------------------
 
+
+    "hyprland/language": {
+    "format": "{}",
+        "format-en": "US",
+        "format-he": "HE"
+    },
     "custom/sp1": {
         "format": " | ",
         "tooltip": false
