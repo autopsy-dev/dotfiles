@@ -51,8 +51,14 @@ REPO_URL_DISPLAY="https://github.com/${GITHUB_USER}/${REPO_NAME}.git"
 TRACKED_DIRS=(
     fastfetch
     fish
+    fontconfig
+    gtk-3.0
+    gtk-4.0
     hypr
     kitty
+    Kvantum
+    mako
+    qt5ct
     rofi
     swaylock
     waybar
@@ -84,7 +90,12 @@ for dir in "${TRACKED_DIRS[@]}"; do
     dst="$REPO_DIR/$dir"
 
     if [[ ! -d "$src" ]]; then
-        echo "Warning: $src not found, skipping."
+        if [[ -d "$dst" ]]; then
+            echo "Restoring $dir from repo (not found in ~/.config)..."
+            rsync -a "$dst/" "$src/"
+        else
+            echo "Warning: $dir not found locally or in repo, skipping."
+        fi
         continue
     fi
 
