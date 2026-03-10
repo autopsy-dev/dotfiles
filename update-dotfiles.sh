@@ -84,6 +84,7 @@ git -C "$REPO_DIR" config user.email "$GIT_EMAIL"
 # --- Copy script and readme into repo ---
 cp "$CONFIG_DIR/update-dotfiles.sh" "$REPO_DIR/update-dotfiles.sh"
 cp "$CONFIG_DIR/README.md" "$REPO_DIR/README.md"
+cp "$CONFIG_DIR/screenshot.png" "$REPO_DIR/screenshot.png"
 
 # --- Sync configs ---
 for dir in "${TRACKED_DIRS[@]}"; do

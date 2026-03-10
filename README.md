@@ -2,6 +2,8 @@
 
 Personal configuration files for my Hyprland setup on CachyOS.
 
+![screenshot](screenshot.png)
+
 ## Contents
 
 | Directory | Description |
