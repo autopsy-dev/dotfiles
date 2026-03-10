@@ -2,21 +2,22 @@
 
 @define-color critical #ff0000; /* critical color */
 @define-color warning #f3f809;  /* warning color */
-@define-color text @color12;  /* text color */
-@define-color text-alt @color9;  /* text alternative color */
+@define-color text @color8;  /* text color */
+@define-color text-alt @color12;  /* text alternative color */
 @define-color bg @color7;  /* background color */
 
 *{
-	font-family: "JetBrains Mono Nerd Font";
+	font-family: "JetBrainsMono Nerd Font";
 	font-weight: bold;
-	min-height: 0;	
+	min-height: 0;
 	/* set font-size to 100% if font scaling is set to 1.00 using nwg-look */
-	font-size: 97%;
+	font-size: 105%;
 	font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
+	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6), 0 0 8px rgba(0, 0, 0, 0.35);
 }
 	
 window#waybar {
-    background: rgba(255, 255, 255, 0.02); /* semi-transparent background for nicer effect */
+    background: rgba(255, 255, 255, 0.08); /* semi-transparent background for nicer effect */
     border-radius: 12px;          /* smooth rounded corners */
     color: @text;
     padding: 2px;                 /* optional, adds spacing inside the bar */
@@ -35,18 +36,6 @@ window#waybar.empty #window {
    background-color: transparent;
 } 
 
-/*-----module groups----*/
-.modules-right {
-	
-}
-
-.modules-center {
-		
-}
-
-.modules-left {
-	   
-}
 
 #workspaces button {
 	color: @text-alt;
@@ -108,6 +97,8 @@ window#waybar.empty #window {
 #window,
 #wireplumber,
 #workspaces,
+#custom-screenshot_t,
+#custom-storage,
 #custom-cycle_wall,
 #custom-hint,
 #custom-keyboard,
@@ -130,12 +121,17 @@ window#waybar.empty #window {
 #custom-weather.showyIcyDay,
 #custom-weather.snowyIcyNight,
 #custom-weather.sunnyDay {
-	padding-top: 4px;
-	padding-bottom: 4px;
-	padding-right: 6px;
-	padding-left: 6px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	padding-right: 10px;
+	padding-left: 10px;
 }
 	 
+#language {
+	padding-left: 14px;
+	padding-right: 14px;
+}
+
 #temperature.critical {
 	background-color: #ff0000;
 }
@@ -155,6 +151,11 @@ window#waybar.empty #window {
 	animation-direction: alternate;
 }
 
+#tray {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
 #pulseaudio-slider slider {
 	min-width: 0px;
 	min-height: 0px;
@@ -172,9 +173,9 @@ window#waybar.empty #window {
 }
 
 #pulseaudio-slider highlight {
-	min-height: 10px; 
+	min-height: 10px;
 	border-radius: 5px;
-	background-color: wheat;
+	background-color: @text;
 }
 
 #backlight-slider slider {
@@ -194,9 +195,8 @@ window#waybar.empty #window {
 }
 
 #backlight-slider highlight {
-	min-width: 10px; 
+	min-width: 10px;
 	border-radius: 5px;
-	background-color: wheat;
+	background-color: @text;
 }
-	
-	
+

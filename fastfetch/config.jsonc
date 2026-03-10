@@ -1,10 +1,9 @@
-//   _____ _____ _____ _____ _____ _____ _____ _____ _____ 
+//   _____ _____ _____ _____ _____ _____ _____ _____ _____
 //  |   __|  _  |   __|_   _|   __|   __|_   _|     |  |  |
 //  |   __|     |__   | | | |   __|   __| | | |   --|     |
-//  |__|  |__|__|_____| |_| |__|  |_____| |_| |_____|__|__|  ARCH  
+//  |__|  |__|__|_____| |_| |__|  |_____| |_| |_____|__|__|  ARCH
 //
 //  by Bina
-
 
 // execute with: fastfetch --colors-block-range-start 9 --colors-block-width 3
 
@@ -12,66 +11,79 @@
     "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
     "logo": {
         "source": "~/.config/fastfetch/ascii/arch.txt",
+        "color": {
+            "1": "38;2;244;63;94",   // bright red  #f43f5e
+            "2": "38;2;127;29;29"    // dark red     #7f1d1d
+        },
         "padding": {
             "top": 2,
             "right": 6
         }
     },
     "display": {
-        "separator": " "
+        "separator": " ",
+        "color": {
+            "keys": "38;2;244;63;94",
+            "title": "38;2;220;38;38"
+        }
     },
     "modules": [
-	"break",
-	"break",
-	{
+        "break",
+        "break",
+        {
             "type": "title",
-            "keyWidth": 10
+            "keyWidth": 10,
+            "color": {
+                "user": "38;2;244;63;94",
+                "at": "38;2;127;29;29",
+                "host": "38;2;220;38;38"
+            }
         },
         "break",
         {
             "type": "os",
-            "key": " ",
-            "keyColor": "33",  // = color3
+            "key": " ",
+            "keyColor": "38;2;244;63;94"
         },
         {
             "type": "kernel",
-            "key": " ",
-            "keyColor": "33",
+            "key": " ",
+            "keyColor": "38;2;220;38;38"
         },
         {
             "type": "packages",
             "format": "{} (pacman)",
-            "key": " ",
-            "keyColor": "33",  
+            "key": " ",
+            "keyColor": "38;2;244;63;94"
         },
         {
             "type": "shell",
-            "key": " ",
-            "keyColor": "33", 
+            "key": " ",
+            "keyColor": "38;2;220;38;38"
         },
         {
             "type": "terminal",
-            "key": " ",
-            "keyColor": "33", 
+            "key": " ",
+            "keyColor": "38;2;244;63;94"
         },
         {
             "type": "wm",
-            "key": " ",
-            "keyColor": "33", 
+            "key": " ",
+            "keyColor": "38;2;220;38;38"
         },
         {
             "type": "uptime",
-            "key": " ",
-            "keyColor": "33", 
+            "key": " ",
+            "keyColor": "38;2;244;63;94"
         },
         {
             "type": "media",
             "key": "󰝚 ",
-            "keyColor": "33", 
+            "keyColor": "38;2;220;38;38"
         },
         "break",
         "colors",
         "break",
-        "break",
+        "break"
     ]
 }

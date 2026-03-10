@@ -5,10 +5,10 @@
 
 /* ---- Configuration ---- */
 configuration {
-	font: "Fira Code SemiBold 12";
+	font: "Fira Code SemiBold 14";
 }
 
 element-text {
-    font:	"Fira Code SemiBold 14";
+    font:	"Fira Code SemiBold 16";
 }
 

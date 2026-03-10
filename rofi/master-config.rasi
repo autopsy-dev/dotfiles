@@ -4,7 +4,7 @@
 /* ---- Configuration ---- */
 
 configuration {
-	modi:                       "drun,run,filebrowser";
+	modi:                       "drun";
     show-icons:                 true;
     display-drun:               "Apps";
     display-run:                "Run";
@@ -29,7 +29,7 @@ configuration {
     active:                      @selected-normal-background; // Window activated
     urgent:                      @selected; // When hovering the activated window (maybe more?)
 
-    text-selected:               @background;
+    text-selected:               #ffe4e4;
     text-color:                  @foreground;
     border-color:                @selected;
 }
@@ -65,20 +65,19 @@ mainbox {
 /* ---- Inputbar ---- */
 inputbar {
     enabled:                     true;
-    padding:                     10px 10px 100px 10px;
+    padding:                     10px;
     margin:                      10px;
     background-color:            transparent;
     border-radius:               25px;
     orientation:                 horizontal;
-    children:                    ["entry", "dummy", "mode-switcher" ];
+    children:                    ["entry"];
     background-image:            url("~/.config/rofi/.current_wallpaper", width);
 }
 
 /* ---- Entry input ---- */
 entry {
     enabled:                     true;
-    expand:                      false;
-    width:                       20%;
+    expand:                      true;
     padding:                     10px;
     border-radius:               12px;
     background-color:            @selected;
@@ -124,7 +123,7 @@ dummy {
 
 /* ---- Mode Switcher ---- */
 mode-switcher{
-    enabled:                     true;
+    enabled:                     false;
     spacing:                     10px;
     background-color:            transparent;
 }
@@ -132,8 +131,8 @@ button {
     width:                       5%;
     padding:                     12px;
     border-radius:               12px;
-    background-color:            @text-selected;
-    text-color:                  @text-color;
+    background-color:            @background-alt;
+    text-color:                  @text-selected;
     cursor:                      pointer;
 }
 button selected {
