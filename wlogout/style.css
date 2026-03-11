@@ -4,15 +4,15 @@
 }
 
 window {
-	background-color: rgba(17, 24, 38, 0.9); /* cachydblue with alpha */
+	background-color: rgba(13, 0, 0, 0.9);
 }
 
 button {
     border-radius: 0;
-    border-color: #007d6f; /* cachydgreen */
-	text-decoration-color: #ffffff; /* cachywhite */
-    color: #ffffff; /* cachywhite */
-	background-color: #111826; /* cachydblue */
+    border-color: #7f1d1d;
+	text-decoration-color: #fca5a5;
+    color: #fca5a5;
+	background-color: #0d0000;
 	border-style: solid;
 	border-width: 1px;
 	background-repeat: no-repeat;
@@ -21,7 +21,9 @@ button {
 }
 
 button:focus, button:active, button:hover {
-	background-color: #00aa84; /* cachymgreen */
+	background-color: #2a0808;
+	border-color: #f43f5e;
+	color: #ffffff;
 	outline-style: none;
 }
 
