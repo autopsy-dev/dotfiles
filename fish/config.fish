@@ -61,7 +61,8 @@ sb=38;2;127;29;29:\
 alias btop="btop --force-utf"
 export EDITOR=nano
 export TerminalEmulator=xfce4-terminal
-set -gx GTK_THEME Adwaita:dark
+set -gx GTK_THEME cachyos-nord
+set -gx QT_STYLE_OVERRIDE kvantum
 
 # opencode
 fish_add_path /home/user/.opencode/bin
