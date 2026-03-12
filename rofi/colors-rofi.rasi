@@ -21,7 +21,7 @@ selected-urgent-background: rgba(74,16,16,0.80);
 selected-urgent-foreground: #ffe4e4;
 
 background-color: rgba(13,0,0,0);
-background: rgba(13,0,0,0.45);
+background: rgba(0,0,0,0.55);
 foreground: #e0a8a8;
-border-color: #7f1d1d;
+border-color: rgba(244,63,94,0.20);
 }
