@@ -1,0 +1,20 @@
+[2026-03-17 12:00:14.422] [info] Using configuration file /home/user/.config/waybar/config
+[2026-03-17 12:00:14.427] [info] Discovered appearance 'dark'
+[2026-03-17 12:00:14.495] [info] Using CSS file /home/user/.config/waybar/style.css
+[2026-03-17 12:00:14.502] [info] Hyprland IPC starting
+[2026-03-17 12:00:14.503] [info] Loading persistent workspaces from Hyprland workspace rules
+Discharging
+[2026-03-17 12:00:14.700] [warning] Requested height: 32 is less than the minimum height: 36 required by the modules
+[2026-03-17 12:00:14.700] [info] Bar configured (width: 1900, height: 36) for output: eDP-1
+
+** (waybar:98158): WARNING **: 12:00:14.875: Status Notifier Item with bus name ':1.21' and object path '/org/ayatana/NotificationItem/nm_applet' is already registered
+[2026-03-17 12:00:55.284] [info] Using configuration file /home/user/.config/waybar/config
+[2026-03-17 12:00:55.289] [info] Discovered appearance 'dark'
+[2026-03-17 12:00:55.376] [info] Using CSS file /home/user/.config/waybar/style.css
+[2026-03-17 12:00:55.384] [info] Hyprland IPC starting
+[2026-03-17 12:00:55.386] [info] Loading persistent workspaces from Hyprland workspace rules
+Discharging
+[2026-03-17 12:00:55.593] [warning] Requested height: 32 is less than the minimum height: 36 required by the modules
+[2026-03-17 12:00:55.593] [info] Bar configured (width: 1900, height: 36) for output: eDP-1
+
+** (waybar:98310): WARNING **: 12:00:55.629: Status Notifier Item with bus name ':1.21' and object path '/org/ayatana/NotificationItem/nm_applet' is already registered
