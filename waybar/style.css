@@ -16,19 +16,25 @@
 	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6), 0 0 8px rgba(0, 0, 0, 0.35);
 }
 	
-@keyframes border-breathe {
-    0%   { border-color: rgba(255,255,255,0.08); }
-    50%  { border-color: rgba(255,255,255,0.38); }
-    100% { border-color: rgba(255,255,255,0.08); }
+@keyframes border-burst {
+    0%   { background-position: 0 0, 50% 0, 50% 0; }
+    50%  { background-position: 0 0, 0% 0, 100% 0; }
+    100% { background-position: 0 0, 50% 0, 50% 0; }
 }
 
 window#waybar {
     background: rgba(0, 0, 0, 0.45);
-    border: 2px solid rgba(255, 255, 255, 0.15);
+    border: 2px solid transparent;
     border-radius: 12px;
     color: @text;
     padding: 2px;
-    animation: border-breathe 4s ease-in-out infinite;
+    background-image: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+                      linear-gradient(90deg, transparent, rgba(255,255,255,0.08) 50%, transparent),
+                      linear-gradient(90deg, transparent, rgba(255,255,255,0.08) 50%, transparent);
+    background-origin: border-box;
+    background-clip: padding-box, border-box, border-box;
+    background-size: 100% 100%, 200% 100%, 200% 100%;
+    animation: border-burst 4s ease-in-out infinite;
 }
 	
 window#waybar.hidden {
