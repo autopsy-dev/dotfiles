@@ -16,6 +16,8 @@ configuration {
     me-accept-entry:            "MousePrimary";
 	window-format:              "{w} · {c} · {t}";
 	dpi:						1;
+    kb-row-first:               "Home";
+    kb-select-all:              "Control+a";
 }
 
 /* ---- Load wallust colors ---- */

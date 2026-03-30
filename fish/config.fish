@@ -1,4 +1,5 @@
 source /usr/share/cachyos-fish-config/cachyos-config.fish
+source ~/.fishrc
 
 # Red/black color scheme for eza (ls) and ls
 set -x LS_COLORS "\
