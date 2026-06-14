@@ -17,8 +17,6 @@ Personal configuration files for my Hyprland setup on CachyOS.
 | `swaylock/` | Screen locker |
 | `wlogout/` | Logout menu |
 | `mako/` | Notification daemon |
-| `gtk-3.0/` | GTK3 theming |
-| `gtk-4.0/` | GTK4 theming |
 | `Kvantum/` | Qt/KDE theming |
 | `qt5ct/` | Qt5 appearance |
 | `fontconfig/` | Font rendering rules |
