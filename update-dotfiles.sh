@@ -52,8 +52,6 @@ TRACKED_DIRS=(
     fastfetch
     fish
     fontconfig
-    gtk-3.0
-    gtk-4.0
     hypr
     kitty
     Kvantum
