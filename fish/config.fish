@@ -24,7 +24,7 @@ ow=38;2;244;63;94:\
 *.mp4=38;2;248;113;113:*.mkv=38;2;248;113;113:*.webm=38;2;248;113;113:\
 *.mp3=38;2;248;113;113:*.flac=38;2;248;113;113:*.wav=38;2;248;113;113:\
 *.pdf=38;2;220;38;38:*.doc=38;2;220;38;38:*.docx=38;2;220;38;38:\
-*.sh=1;38;2;220;38;38:*.fish=1;38;38;38;220"
+*.sh=1;38;2;220;38;38:*.fish=1;38;2;220;38;38"
 
 set -x EZA_COLORS "\
 di=1;38;2;244;63;94:\
@@ -61,7 +61,7 @@ sb=38;2;127;29;29:\
 
 alias btop="btop --force-utf"
 export EDITOR=nano
-export TerminalEmulator=xfce4-terminal
+export TerminalEmulator=kitty
 set -gx GTK_THEME cachyos-nord
 set -gx QT_STYLE_OVERRIDE kvantum
 

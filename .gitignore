@@ -1,0 +1,8 @@
+
+.claude/
+
+nohup.out
+
+*.log
+
+fish_variables
