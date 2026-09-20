@@ -1,17 +1,8 @@
-#!/usr/bin/env bash
-
-# Directory to save screenshots
-DIR="$HOME/Pictures/Screenshots"
-mkdir -p "$DIR"
-
-# Filename with date
-FILE="$DIR/screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png"
-
-# Take full-screen screenshot
-grim "$FILE"
-
-# Copy to clipboard
-wl-copy < "$FILE"
-
-# Optional: Send a notification
-notify-send "📸 Screenshot saved" "$FILE and copied to clipboard"
+#!/bin/sh
+set -eu
+directory="$(xdg-user-dir PICTURES 2>/dev/null || printf '%s/Pictures' "$HOME")/Screenshots"
+mkdir -p "$directory"
+file="$directory/screenshot_full_$(date +'%Y-%m-%d_%H-%M-%S').png"
+grim "$file"
+wl-copy < "$file"
+notify-send 'Screenshot saved and copied' "$file"

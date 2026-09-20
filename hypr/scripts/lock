@@ -1,0 +1,12 @@
+#!/bin/sh
+set -eu
+if command -v swaylock >/dev/null 2>&1; then
+    if swaylock --help 2>&1 | grep -q -- '--effect-blur'; then
+        exec swaylock -f
+    fi
+    # Standard swaylock does not accept the effects configuration.
+    exec swaylock -f -C /dev/null --color 101c24 --ring-color d8ad70 \
+        --inside-color 192a32 --text-color e6dfcf --key-hl-color 8faa89
+fi
+notify-send -u critical 'Screen lock unavailable' 'Install swaylock or swaylock-effects.'
+exit 1

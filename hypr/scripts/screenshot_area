@@ -1,14 +1,10 @@
-#!/usr/bin/env bash
-
-DIR="$HOME/Pictures/Screenshots"
-mkdir -p "$DIR"
-
-FILE="$DIR/screenshot_area_$(date +'%Y-%m-%d_%H-%M-%S').png"
-
-# Select an area and screenshot it
-grim -g "$(slurp)" "$FILE"
-
-# Copy to clipboard
-wl-copy < "$FILE"
-
-notify-send "📸 Area screenshot saved" "$FILE and copied to clipboard"
+#!/bin/sh
+set -eu
+directory="$(xdg-user-dir PICTURES 2>/dev/null || printf '%s/Pictures' "$HOME")/Screenshots"
+mkdir -p "$directory"
+region=$(slurp) || exit 0
+[ -n "$region" ] || exit 0
+file="$directory/screenshot_area_$(date +'%Y-%m-%d_%H-%M-%S').png"
+grim -g "$region" "$file"
+wl-copy < "$file"
+notify-send 'Screenshot saved and copied' "$file"

@@ -23,6 +23,22 @@ Personal configuration files for my Hyprland setup on CachyOS.
 
 ## Usage
 
+To install the version currently on GitHub:
+
+```bash
+./install-dotfiles.sh
+```
+
+Requires `git` and `rsync`. The installer downloads the repository's default
+branch and asks you to type `yes` before replacing the included config folders.
+**This overwrites local changes, including changes not saved to GitHub, and
+removes files absent from the repository inside those folders. Save unsaved
+editor changes before running it.** Existing files are backed up under
+`~/.config/dotfiles-backups/` (or `$XDG_CONFIG_HOME/dotfiles-backups/`). Other
+config folders and existing Git checkouts are left alone. System packages are
+not installed. Public repositories need no GitHub token; private repositories
+can use your Git credentials, `GITHUB_TOKEN`, or the sync script's saved token.
+
 `update-dotfiles.sh` handles both syncing and restoring configs:
 
 ```bash
@@ -33,10 +49,4 @@ Personal configuration files for my Hyprland setup on CachyOS.
 - If a config directory exists in `~/.config/`, it is synced to the repo and pushed.
 - If a config directory is **missing** from `~/.config/` but exists in the repo, it is automatically restored from the repo.
 
-Authentication uses `GITHUB_TOKEN` or the existing `~/.config/.dotfiles_github_token` file (mode 600). Credentials are supplied by a runtime Git helper, never stored in remote URLs. Provision credentials securely before running; the script does not prompt for secrets.
-
-The script refuses to sync a dirty checkout and only accepts fast-forward pulls. Commit or stash checkout changes yourself; it no longer resets or cleans them automatically.
-
-Logs, `.claude/` local settings, and `fish_variables` are excluded from sync and restore. Previously tracked `fish/fish_variables` and `hypr/config/nohup.out` are removed from the Git index on the next sync, retaining local copies. This does not erase old Git history.
-
-Automatic screen locking requires `swayidle` and `swaylock-fancy`. After installing a missing idle daemon, log out and back in to start it.
+Requires a GitHub personal access token with `repo` scope — you'll be prompted on first run and the token is saved to `~/.config/.dotfiles_github_token`.

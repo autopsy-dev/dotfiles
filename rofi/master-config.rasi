@@ -21,7 +21,7 @@ configuration {
 }
 
 /* ---- Load wallust colors ---- */
-@theme "~/.config/rofi/colors-rofi.rasi"
+@theme "colors-rofi.rasi"
 
 /* ---- Global Properties ---- */
 * {
@@ -31,9 +31,9 @@ configuration {
     active:                      @selected-normal-background; // Window activated
     urgent:                      @selected; // When hovering the activated window (maybe more?)
 
-    text-selected:               #ffe4e4;
+    text-selected:               #101c24;
     text-color:                  @foreground;
-    border-color:                @selected;
+    border-color:                #3b5050;
 }
 
 /* ---- Window ---- */
@@ -45,7 +45,7 @@ window {
     cursor:                     "default";
     spacing:                    0px;
     border:                     0px;
-    border-radius:              30px;
+    border-radius:              16px;
     location:                   center;
     anchor:                     center;
 
@@ -75,7 +75,7 @@ inputbar {
     border-radius:               25px;
     orientation:                 horizontal;
     children:                    ["entry"];
-    background-image:            url("~/.config/rofi/.current_wallpaper", width);
+    background-image:            none;
 }
 
 /* ---- Entry input ---- */
@@ -84,8 +84,8 @@ entry {
     expand:                      true;
     padding:                     10px;
     border-radius:               12px;
-    background-color:            @selected;
-    text-color:                  @text-selected;
+    background-color:            #192a32;
+    text-color:                  @foreground;
     cursor:                      text;
     placeholder:                 "🖥️ Search "; // << Search symbol
     placeholder-color:           inherit;
@@ -223,14 +223,14 @@ message {
 textbox {
     padding:                     12px;
     border-radius:               10px;
-    background-color:            @background-alt;
-    text-color:                  @background;
+    background-color:            #192a32;
+    text-color:                  @foreground;
     vertical-align:              0.5;
     horizontal-align:            0.0;
 }
 error-message {
     padding:                     12px;
     border-radius:               20px;
-    background-color:            @background-alt;
-    text-color:                  @background;
+    background-color:            #192a32;
+    text-color:                  @foreground;
 }

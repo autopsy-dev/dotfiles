@@ -66,7 +66,7 @@ set -gx GTK_THEME cachyos-nord
 set -gx QT_STYLE_OVERRIDE kvantum
 
 # opencode
-fish_add_path /home/user/.opencode/bin
+fish_add_path /home/pc/.opencode/bin
 
 set -gx GOPATH $HOME/go; set -gx GOROOT $HOME/.go; set -gx PATH $GOPATH/bin $PATH; # g-install: do NOT edit, see https://github.com/stefanmaric/g
 
@@ -79,3 +79,5 @@ end
 function ssh
     TERM=xterm-256color command ssh $argv
 end
+
+export PATH="$HOME/.local/bin:$PATH"

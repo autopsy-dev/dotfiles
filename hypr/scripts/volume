@@ -1,0 +1,9 @@
+#!/bin/sh
+# PipeWire's default sink follows whichever output the laptop/desktop uses.
+set -eu
+case "${1:-}" in
+    up) exec wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ ;;
+    down) exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- ;;
+    mute) exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle ;;
+    *) exit 2 ;;
+esac

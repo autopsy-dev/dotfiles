@@ -16,7 +16,7 @@
     "spacing": 5, // Gaps between modules (4px)
 
     "modules-left": [
-        "ext/workspaces",
+        "hyprland/workspaces",
         "cpu",
         "memory",
         "custom/storage"
@@ -46,14 +46,14 @@
     },
 
     "custom/screenshot_t": {
-        "format": "<span size='145%'></span>",
-        "on-click": "\"${XDG_CONFIG_HOME:-$HOME/.config}/hypr/scripts/screenshot_full\"",
-        "on-click-right": "\"${XDG_CONFIG_HOME:-$HOME/.config}/hypr/scripts/screenshot_area\""
+        "format": "",
+        "on-click": "~/.config/hypr/scripts/screenshot_full",
+        "on-click-right": "~/.config/hypr/scripts/screenshot_area"
     },
 
     "memory": {
         "interval": 30,
-        "format": "<span size='145%'></span>  {percentage}%",
+        "format": "  {percentage}%",
         "on-click": "kitty -e btop"
     },
 
@@ -65,14 +65,14 @@
             "critical": 15
         },
         "format": "{icon}  {capacity}%",
-        "format-charging": "<span size='145%'></span> {capacity}%",
-        "format-plugged": "<span size='145%'></span> {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
         "format-icons": [
-            "<span size='145%'></span>",
-            "<span size='145%'></span>",
-            "<span size='145%'></span>",
-            "<span size='145%'></span>",
-            "<span size='145%'></span>"
+            "",
+            "",
+            "",
+            "",
+            ""
         ]
     },
 
@@ -86,59 +86,69 @@
     },
 
     "custom/power": {
-        "format": " <span size='145%'>󰐥</span> ",
+        "format": " 󰐥 ",
         "tooltip": false,
         "on-click": "wlogout"
     },
 
     "clock#date": {
-        "format": "<span size='145%'>󰥔</span>  {:%H:%M  %e %b}",
+        "format": "󰥔  {:%H:%M  %e %b}",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "today-format": "<b>{}</b>"
     },
 
     "cpu": {
         "interval": 1,
-        "format": "<span size='145%'></span>  {usage}%",
+        "format": "  {usage}%",
         "max-length": 20
     },
 
-    "ext/workspaces": {
-        "all-outputs": false,
+    "hyprland/workspaces": {
+        "all-outputs": true,
         "format": "{name}",
-        "on-scroll-up": "hyprctl dispatch 'hl.dsp.focus({ workspace = \"m+1\" })'",
-        "on-scroll-down": "hyprctl dispatch 'hl.dsp.focus({ workspace = \"m-1\" })'",
-        "sort-by-name": true,
-        "on-click": "activate",
-        "ignore-hidden": false,
-        "active-only": false
+        "format-icons": {
+            "1": "一",
+            "2": "二",
+            "3": "三",
+            "4": "四",
+            "5": "五",
+            "6": "六",
+            "7": "七",
+            "8": "八",
+            "9": "九",
+            "10": "十",
+        },
+        "on-scroll-up": "hyprctl dispatch workspace e+1 1>/dev/null",
+        "on-scroll-down": "hyprctl dispatch workspace e-1 1>/dev/null",
+        "sort-by-number": true,
+        "active-only": false,
     },
 
     "wireplumber": {
         "on-click": "pavucontrol",
-        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
-        "format": "<span foreground='#d8ad70'>{icon}</span>  {volume}%",
-        "format-muted": "<span size='145%'></span> ",
+        "on-click-right": "amixer sset Master toggle 1>/dev/null",
+        "format": "<span foreground='#fab387'>{icon}</span>  {volume}%",
+        "format-muted": " ",
         "format-source": "",
         "format-source-muted": "",
         "format-icons": {
-            "headphone": "<span size='145%'></span> ",
-            "hands-free": "<span size='145%'></span> ",
-            "headset": "<span size='145%'></span> ",
-            "phone": "<span size='145%'></span> ",
-            "portable": "<span size='145%'></span> ",
-            "car": "<span size='145%'></span> ",
-            "default": ["<span size='145%'></span> ", "<span size='145%'></span> ", "<span size='145%'></span> "]
+            "headphone": " ",
+            "hands-free": " ",
+            "headset": " ",
+            "phone": " ",
+            "portable": " ",
+            "car": " ",
+            "default": [" ", " ", " "]
         },
     },
 
 
     "custom/storage": {
-        "format": "<span size='145%'></span>  {}",
+        "format": "  {}",
         "return-type": "json",
         "interval": 30,
-        "exec": "\"${XDG_CONFIG_HOME:-$HOME/.config}/waybar/modules/storage.sh\"",
-        "exec-if": "[ -f \"${XDG_CONFIG_HOME:-$HOME/.config}/waybar/modules/storage.sh\" ]"
+        "exec": "~/.config/waybar/modules/storage.sh",
+        "exec-if": "[ -f ~/.config/waybar/modules/storage.sh ]"
     },
 
     "tray": {
