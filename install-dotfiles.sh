@@ -56,6 +56,15 @@ fi
 echo 'Downloading dotfiles from the repository default branch...'
 GIT_TERMINAL_PROMPT=0 git clone --quiet --depth 1 -- "$REPO_URL" "$WORK_DIR/repo"
 
+# Do not replace a working setup with a checkout missing its wallpapers.
+for image in dark-cozy-landscape.png dark-cozy-portrait.png; do
+    if [[ ! -s "$WORK_DIR/repo/backgrounds/$image" ]]; then
+        printf 'Missing wallpaper in GitHub checkout: backgrounds/%s\n' "$image" >&2
+        echo 'Run update-dotfiles.sh on the configured PC to upload the wallpapers, then retry.' >&2
+        exit 1
+    fi
+done
+
 INSTALL_DIRS=()
 for directory in "${TRACKED_DIRS[@]}"; do
     source="$WORK_DIR/repo/$directory"
@@ -107,4 +116,8 @@ for directory in "${INSTALL_DIRS[@]}"; do
     rsync -a --delete -- "$WORK_DIR/repo/$directory/" "$CONFIG_DIR/$directory/"
 done
 printf '\nInstalled the GitHub dotfiles. Backups: %s\n' "$BACKUP_DIR"
+echo 'Landscape and portrait wallpapers installed in the backgrounds folder.'
+if ! command -v swaybg >/dev/null || ! command -v python3 >/dev/null; then
+    echo 'Install swaybg and Python 3 to display the wallpapers automatically in Hyprland.'
+fi
 echo 'Restart the affected applications or log back into Hyprland to apply everything.'

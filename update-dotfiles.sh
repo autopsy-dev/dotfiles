@@ -49,6 +49,7 @@ REPO_URL_DISPLAY="https://github.com/${GITHUB_USER}/${REPO_NAME}.git"
 
 # Directories tracked in the repo (relative to ~/.config/)
 TRACKED_DIRS=(
+    backgrounds
     fastfetch
     fish
     fontconfig

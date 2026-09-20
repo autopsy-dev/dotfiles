@@ -9,6 +9,7 @@ Personal configuration files for my Hyprland setup on CachyOS.
 | Directory | Description |
 |-----------|-------------|
 | `hypr/` | Hyprland window manager config |
+| `backgrounds/` | Wallpapers, including the dark cozy landscape and portrait images |
 | `waybar/` | Status bar |
 | `fish/` | Fish shell config |
 | `kitty/` | Terminal emulator |
@@ -38,6 +39,12 @@ editor changes before running it.** Existing files are backed up under
 config folders and existing Git checkouts are left alone. System packages are
 not installed. Public repositories need no GitHub token; private repositories
 can use your Git credentials, `GITHUB_TOKEN`, or the sync script's saved token.
+
+The sync script uploads `backgrounds/`, and the installer checks that both
+`dark-cozy-landscape.png` and `dark-cozy-portrait.png` are present before changing
+your configs. Hyprland selects the appropriate wallpaper for each monitor when
+you log in. This requires `swaybg` and Python 3. Run `update-dotfiles.sh` on the
+configured PC first to publish the wallpaper files and updated scripts.
 
 `update-dotfiles.sh` handles both syncing and restoring configs:
 
