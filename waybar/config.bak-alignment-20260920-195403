@@ -13,8 +13,7 @@
     "margin-left": 10,
     "margin-right": 10,
 
-    "spacing": 4,
-    "fixed-center": true,
+    "spacing": 5, // Gaps between modules (4px)
 
     "modules-left": [
         "ext/workspaces",
@@ -47,15 +46,14 @@
     },
 
     "custom/screenshot_t": {
-        "align": 0.5,
-        "format": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal'></span>",
+        "format": "<span size='145%'></span>",
         "on-click": "\"${XDG_CONFIG_HOME:-$HOME/.config}/hypr/scripts/screenshot_full\"",
         "on-click-right": "\"${XDG_CONFIG_HOME:-$HOME/.config}/hypr/scripts/screenshot_area\""
     },
 
     "memory": {
         "interval": 30,
-        "format": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal' rise='-1152'></span> {percentage}%",
+        "format": "<span size='145%'></span>  {percentage}%",
         "on-click": "kitty -e btop"
     },
 
@@ -66,15 +64,15 @@
             "warning": 30,
             "critical": 15
         },
-        "format": "{icon} {capacity}%",
-        "format-charging": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal'></span> {capacity}%",
-        "format-plugged": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal'></span> {capacity}%",
+        "format": "{icon}  {capacity}%",
+        "format-charging": "<span size='145%'></span> {capacity}%",
+        "format-plugged": "<span size='145%'></span> {capacity}%",
         "format-icons": [
-            "<span font_family='FontAwesome' font_size='12pt' font_weight='normal'></span>",
-            "<span font_family='FontAwesome' font_size='12pt' font_weight='normal'></span>",
-            "<span font_family='FontAwesome' font_size='12pt' font_weight='normal'></span>",
-            "<span font_family='FontAwesome' font_size='12pt' font_weight='normal'></span>",
-            "<span font_family='FontAwesome' font_size='12pt' font_weight='normal'></span>"
+            "<span size='145%'></span>",
+            "<span size='145%'></span>",
+            "<span size='145%'></span>",
+            "<span size='145%'></span>",
+            "<span size='145%'></span>"
         ]
     },
 
@@ -88,21 +86,20 @@
     },
 
     "custom/power": {
-        "align": 0.5,
-        "format": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal'></span>",
+        "format": " <span size='145%'>󰐥</span> ",
         "tooltip": false,
         "on-click": "wlogout"
     },
 
     "clock#date": {
-        "format": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal' rise='-768'></span> {:%H:%M  %e %b}",
+        "format": "<span size='145%'>󰥔</span>  {:%H:%M  %e %b}",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "today-format": "<b>{}</b>"
     },
 
     "cpu": {
         "interval": 1,
-        "format": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal'></span> {usage}%",
+        "format": "<span size='145%'></span>  {usage}%",
         "max-length": 20
     },
 
@@ -120,24 +117,24 @@
     "wireplumber": {
         "on-click": "pavucontrol",
         "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
-        "format": "<span foreground='#d8ad70'>{icon}</span> {volume}%",
-        "format-muted": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal' rise='-768'></span>",
+        "format": "<span foreground='#d8ad70'>{icon}</span>  {volume}%",
+        "format-muted": "<span size='145%'></span> ",
         "format-source": "",
         "format-source-muted": "",
         "format-icons": {
-            "headphone": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal' rise='-768'></span>",
-            "hands-free": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal' rise='-768'></span>",
-            "headset": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal' rise='-768'></span>",
-            "phone": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal' rise='-768'></span>",
-            "portable": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal' rise='-768'></span>",
-            "car": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal' rise='-768'></span>",
-            "default": ["<span font_family='FontAwesome' font_size='12pt' font_weight='normal' rise='-768'></span>", "<span font_family='FontAwesome' font_size='12pt' font_weight='normal' rise='-768'></span>", "<span font_family='FontAwesome' font_size='12pt' font_weight='normal' rise='-768'></span>"]
+            "headphone": "<span size='145%'></span> ",
+            "hands-free": "<span size='145%'></span> ",
+            "headset": "<span size='145%'></span> ",
+            "phone": "<span size='145%'></span> ",
+            "portable": "<span size='145%'></span> ",
+            "car": "<span size='145%'></span> ",
+            "default": ["<span size='145%'></span> ", "<span size='145%'></span> ", "<span size='145%'></span> "]
         },
     },
 
 
     "custom/storage": {
-        "format": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal'></span> {}",
+        "format": "<span size='145%'></span>  {}",
         "return-type": "json",
         "interval": 30,
         "exec": "\"${XDG_CONFIG_HOME:-$HOME/.config}/waybar/modules/storage.sh\"",
@@ -145,7 +142,7 @@
     },
 
     "tray": {
-        "icon-size": 16,
+        "icon-size": 20,
         "spacing": 5
     }
 }

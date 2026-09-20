@@ -55,7 +55,7 @@
 
     "memory": {
         "interval": 30,
-        "format": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal' rise='-1152'></span> {percentage}%",
+        "format": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal'></span> {percentage}%",
         "on-click": "kitty -e btop"
     },
 
@@ -95,7 +95,7 @@
     },
 
     "clock#date": {
-        "format": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal' rise='-768'></span> {:%H:%M  %e %b}",
+        "format": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal'></span> {:%H:%M  %e %b}",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "today-format": "<b>{}</b>"
     },
@@ -121,17 +121,17 @@
         "on-click": "pavucontrol",
         "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
         "format": "<span foreground='#d8ad70'>{icon}</span> {volume}%",
-        "format-muted": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal' rise='-768'></span>",
+        "format-muted": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal'></span>",
         "format-source": "",
         "format-source-muted": "",
         "format-icons": {
-            "headphone": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal' rise='-768'></span>",
-            "hands-free": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal' rise='-768'></span>",
-            "headset": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal' rise='-768'></span>",
-            "phone": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal' rise='-768'></span>",
-            "portable": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal' rise='-768'></span>",
-            "car": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal' rise='-768'></span>",
-            "default": ["<span font_family='FontAwesome' font_size='12pt' font_weight='normal' rise='-768'></span>", "<span font_family='FontAwesome' font_size='12pt' font_weight='normal' rise='-768'></span>", "<span font_family='FontAwesome' font_size='12pt' font_weight='normal' rise='-768'></span>"]
+            "headphone": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal'></span>",
+            "hands-free": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal'></span>",
+            "headset": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal'></span>",
+            "phone": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal'></span>",
+            "portable": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal'></span>",
+            "car": "<span font_family='FontAwesome' font_size='12pt' font_weight='normal'></span>",
+            "default": ["<span font_family='FontAwesome' font_size='12pt' font_weight='normal'></span>", "<span font_family='FontAwesome' font_size='12pt' font_weight='normal'></span>", "<span font_family='FontAwesome' font_size='12pt' font_weight='normal'></span>"]
         },
     },
 
