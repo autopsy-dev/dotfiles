@@ -1,0 +1,17 @@
+#!/bin/bash
+build() {
+    local config="${GRAPHICAL_UNLOCK_CONFIG:-/etc/graphical-unlock}"
+    local theme
+    read -r theme < "$config/theme-name"
+    [[ "$theme" =~ ^[a-zA-Z0-9_-]+$ ]] || return 1
+    # Replace the host crypttab with a generated password-only entry.
+    add_file "$config/crypttab" /etc/crypttab 600
+    add_file "$config/plymouthd.conf" /etc/plymouth/plymouthd.conf 644
+    add_binary /usr/lib/plymouth/two-step.so
+    add_full_dir "/usr/share/plymouth/themes/$theme"
+    add_file "$config/theme.plymouth" "/usr/share/plymouth/themes/$theme/$theme.plymouth" 644
+}
+help() {
+    echo 'Password-only graphical unlock using a local two-step Plymouth theme.'
+}
+

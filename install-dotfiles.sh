@@ -9,7 +9,7 @@ TOKEN_FILE="$CONFIG_DIR/.dotfiles_github_token"
 TRACKED_DIRS=(
     fastfetch fish fontconfig hypr kitty Kvantum mako qt5ct rofi
     swaylock waybar wlogout
-    alacritty backgrounds gtk-3.0 gtk-4.0 themes
+    alacritty backgrounds boot gtk-3.0 gtk-4.0 themes
 )
 
 if [[ "${1:-}" == --help ]]; then
@@ -121,3 +121,8 @@ if ! command -v swaybg >/dev/null || ! command -v python3 >/dev/null; then
     echo 'Install swaybg and Python 3 to display the wallpapers automatically in Hyprland.'
 fi
 echo 'Restart the affected applications or log back into Hyprland to apply everything.'
+if [[ -d "$CONFIG_DIR/boot" ]]; then
+    echo 'Portable boot sources downloaded. Boot settings require a separate installation:'
+    printf '  sudo python3 "%s/boot/install.py"          # inspect the plan\n' "$CONFIG_DIR"
+    printf '  sudo python3 "%s/boot/install.py" --apply  # build and install\n' "$CONFIG_DIR"
+fi

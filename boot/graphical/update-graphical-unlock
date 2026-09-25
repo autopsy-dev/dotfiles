@@ -1,0 +1,126 @@
+#!/usr/bin/python3
+"""Build, inspect, and atomically install a key-free graphical-unlock UKI."""
+import fcntl
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import shutil
+import subprocess
+import sys
+import tempfile
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--config-dir', type=Path, default=Path('/etc/graphical-unlock'))
+parser.add_argument('--output', type=Path)
+parser.add_argument('--trigger-kernel', type=Path)
+arguments = parser.parse_args()
+CONFIG = arguments.config_dir.resolve()
+
+
+def run(*args, **kwargs):
+    return subprocess.run(args, check=True, **kwargs)
+
+
+def sha(path):
+    with path.open('rb') as stream:
+        return hashlib.file_digest(stream, 'sha256').hexdigest()
+
+
+def main():
+    if os.geteuid() != 0:
+        raise SystemExit('Administrator access required.')
+    os.umask(0o077)
+    state = json.loads((CONFIG / 'state.json').read_text())
+    KERNEL = Path(state['kernel'])
+    TARGET = (arguments.output or Path(state['target'])).resolve()
+    if arguments.trigger_kernel and arguments.trigger_kernel.resolve() != KERNEL.resolve():
+        return
+    with open('/run/lock/graphical-unlock.lock', 'w') as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        run('mountpoint', '-q', state['esp'])
+        with tempfile.TemporaryDirectory(prefix='graphical-unlock-', dir='/var/tmp') as work:
+            stage = Path(work)
+            initrd, uki = stage / 'initramfs.img', stage / 'cachyos.efi'
+            kernel_hash = sha(KERNEL)
+            run('mkinitcpio', '--nopost', '--no-ukify', '-k', str(KERNEL),
+                '--hookdir', str(CONFIG / 'hooks'), '--hookdir', '/etc/initcpio',
+                '--hookdir', '/usr/lib/initcpio',
+                '-c', str(CONFIG / 'mkinitcpio.conf'),
+                '--cmdline', str(CONFIG / 'kernel-cmdline'),
+                '-g', str(initrd), '-U', str(uki),
+                env={**os.environ, 'GRAPHICAL_UNLOCK_CONFIG': str(CONFIG)})
+            # Inspect the actual embedded sections, rather than only the inputs.
+            run('objcopy', '--dump-section', f'.cmdline={stage}/cmdline',
+                '--dump-section', f'.linux={stage}/linux',
+                '--dump-section', f'.initrd={stage}/initrd',
+                str(uki), str(stage / 'inspection.efi'))
+            if sha(stage / 'linux') != kernel_hash or sha(KERNEL) != kernel_hash:
+                raise RuntimeError('Kernel changed during build or embedded kernel differs.')
+            if sha(stage / 'initrd') != sha(initrd):
+                raise RuntimeError('Embedded initramfs differs from the verified image.')
+            cmdline = (stage / 'cmdline').read_bytes().rstrip(b'\0\n ').decode()
+            if cmdline != (CONFIG / 'kernel-cmdline').read_text().strip():
+                raise RuntimeError('Unexpected embedded kernel command line.')
+            if any(value in cmdline for value in ['rd.luks.key=', 'cryptkey=', 'plymouth.enable=0']):
+                raise RuntimeError('Unsafe or incompatible kernel command line.')
+            unpacked = stage / 'unpacked'
+            unpacked.mkdir()
+            run('lsinitcpio', '-x', str(initrd), cwd=unpacked, stdout=subprocess.DEVNULL)
+            if (unpacked / 'crypto_keyfile.bin').exists():
+                raise RuntimeError('Refusing to expose the disk-unlock key.')
+            if (unpacked / 'etc/crypttab').read_text() != (CONFIG / 'crypttab').read_text():
+                raise RuntimeError('Unexpected initramfs crypttab.')
+            if (unpacked / 'etc/plymouth/plymouthd.conf').read_text() != (CONFIG / 'plymouthd.conf').read_text():
+                raise RuntimeError('Unexpected Plymouth theme configuration.')
+            required = [
+                'usr/bin/plymouthd', 'usr/lib/plymouth/two-step.so',
+                'usr/lib/systemd/system/systemd-ask-password-console.service',
+                'usr/lib/systemd/system/systemd-ask-password-plymouth.service',
+                f"usr/share/plymouth/themes/{state['theme']}/{state['theme']}.plymouth",
+            ]
+            for name in required:
+                if not (unpacked / name).is_file():
+                    raise RuntimeError(f'Missing required initramfs file: {name}')
+            theme = unpacked / f"usr/share/plymouth/themes/{state['theme']}/{state['theme']}.plymouth"
+            if theme.read_bytes() != (CONFIG / 'theme.plymouth').read_bytes():
+                raise RuntimeError('Unexpected embedded Plymouth theme.')
+            # Never require this PC's keyfile to exist on another machine.
+            # Check every locally discovered key without copying it into the repo or image.
+            keys = [Path(name).read_bytes() for name in state['key_paths']]
+            if any(not key for key in keys):
+                raise RuntimeError('Unexpected empty disk key.')
+            for directory, _, files in os.walk(unpacked, followlinks=False):
+                for filename in files:
+                    path = Path(directory) / filename
+                    if not path.is_symlink() and path.is_file():
+                        data = path.read_bytes()
+                        if any(key in data for key in keys):
+                            raise RuntimeError('Disk key found in generated image; refusing installation.')
+            del keys
+            size = uki.stat().st_size
+            if shutil.disk_usage(state['esp']).free < size + 32 * 1024 * 1024:
+                raise RuntimeError('Insufficient EFI free space for a safe atomic update.')
+            TARGET.parent.mkdir(parents=True, exist_ok=True)
+            pending = TARGET.with_suffix('.pending')
+            try:
+                shutil.copyfile(uki, pending)
+                with pending.open('rb') as stream:
+                    os.fsync(stream.fileno())
+                if sha(pending) != sha(uki):
+                    raise RuntimeError('EFI copy verification failed.')
+                os.replace(pending, TARGET)
+                os.sync()
+            finally:
+                pending.unlink(missing_ok=True)
+            print(f'Verified graphical-unlock image written: {TARGET} ({size // 1048576} MiB)')
+            print('No disk-unlock key is present. The original GRUB boot path is unchanged.')
+
+
+if __name__ == '__main__':
+    try:
+        main()
+    except Exception as error:
+        print(f'Graphical-unlock update failed: {error}', file=sys.stderr)
+        sys.exit(1)

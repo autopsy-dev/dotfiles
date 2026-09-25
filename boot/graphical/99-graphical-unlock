@@ -1,0 +1,6 @@
+#!/bin/sh
+# mkinitcpio passes the kernel image as $1. Ignore unrelated kernels.
+[ -n "${1:-}" ] || exit 0
+[ -f /etc/graphical-unlock/state.json ] || exit 0
+exec /usr/local/sbin/update-graphical-unlock --trigger-kernel "$1"
+

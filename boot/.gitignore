@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+*.efi
+*.img
+*.key
+*.pem
+*.bin
+state.json
+kernel-cmdline
+crypttab
+backups/
+*.log
+

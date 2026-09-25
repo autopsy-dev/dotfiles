@@ -21,6 +21,34 @@ Personal configuration files for my Hyprland setup on CachyOS.
 | `Kvantum/` | Qt/KDE theming |
 | `qt5ct/` | Qt5 appearance |
 | `fontconfig/` | Font rendering rules |
+| `boot/` | Portable rEFInd Calm theme and graphical LUKS unlock installer |
+
+## Graphical disk unlock and rEFInd
+
+The `boot/` folder contains portable sources and theme assets. Syncing uploads
+these files; restoring dotfiles downloads them without modifying the bootloader.
+On a supported Arch/CachyOS machine with rEFInd already installed:
+
+```bash
+sudo python3 ~/.config/boot/install.py          # read-only detection and plan
+sudo python3 ~/.config/boot/install.py --apply  # build, verify, back up and install
+```
+
+See [boot/README.md](boot/README.md) for requirements, restore instructions and
+limitations. Disk identifiers and hardware settings are generated locally under
+`/etc/graphical-unlock`; they are never copied into this repository. The source
+check rejects identifiers, home-directory paths, credentials and build artifacts
+in `boot/` before syncing it. This check covers the boot folder, not all desktop
+configuration folders.
+
+To publish only these boot sources and the shared README/install/sync scripts,
+without uploading local desktop folders or screenshots:
+
+```bash
+./update-dotfiles.sh --boot-only "Add portable graphical unlock and rEFInd"
+```
+
+Boot-only commits use your GitHub handle and its noreply email address.
 
 ## Usage
 
