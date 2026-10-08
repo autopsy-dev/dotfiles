@@ -12,7 +12,10 @@ from the transfer archive.
   and automatic scaling. Additional outputs are placed automatically.
 - The Lenovo G24-10 and HP 22es are recognized by their physical descriptions,
   retaining the desktop's Lenovo-right / portrait-HP-left arrangement even if
-  connector names change. Other screens named DP-3 or DP-4 do not inherit it.
+   connector names change. Other screens named DP-3 or DP-4 do not inherit it.
+- Startup pointer/focus prefers the Lenovo; without it, the first output is used.
+- Meta+Alt+arrows moves the active window to the adjacent monitor and follows it,
+  including floating/fullscreen windows. Meta+Ctrl+arrows keeps layout movement.
 - Every monitor gets ten workspace slots. Meta+1…0, Meta+Shift+number,
   Meta+Ctrl+number and Meta+scroll remain local to the focused monitor.
   Only existing workspaces appear. The active empty workspace remains visible.

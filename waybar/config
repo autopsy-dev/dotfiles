@@ -20,7 +20,8 @@
         "ext/workspaces",
         "cpu",
         "memory",
-        "custom/storage"
+        "custom/storage",
+        "custom/openai"
     ],
     "modules-center": [
         "clock#date",
@@ -85,6 +86,14 @@
         "interval": 3600,
         "exec": "curl -s 'https://wttr.in/?format=1'",
         "exec-if": "ping wttr.in -c1"
+    },
+
+    "custom/openai": {
+        "interval": 60,
+        "exec": "\"${XDG_CONFIG_HOME:-$HOME/.config}/waybar/modules/openai.py\" --waybar --cache 240",
+        "return-type": "json",
+        "format": "{text}",
+        "on-click": "kitty --hold -e \"${XDG_CONFIG_HOME:-$HOME/.config}/waybar/modules/openai.py\" --detail"
     },
 
     "custom/power": {

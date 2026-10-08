@@ -68,7 +68,8 @@ set -gx QT_STYLE_OVERRIDE kvantum
 # opencode
 fish_add_path /home/pc/.opencode/bin
 
-set -gx GOPATH $HOME/go; set -gx GOROOT $HOME/.go; set -gx PATH $GOPATH/bin $PATH; # g-install: do NOT edit, see https://github.com/stefanmaric/g
+set -gx GOROOT /usr/lib/go
+set -gx GOPATH $HOME/go; set -gx PATH $GOPATH/bin $PATH;
 
 function gdisks
     xhost +si:localuser:root

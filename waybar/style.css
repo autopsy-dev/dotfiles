@@ -53,6 +53,10 @@ tooltip label { color: @text; }
 #cpu, #memory, #custom-storage { color: @sage; }
 #wireplumber, #custom-power { color: @amber; }
 #custom-weather, #custom-screenshot_t { color: @teal; }
+#custom-openai { padding: 0 8px; min-width: 34px; color: @sage; }
+#custom-openai.warning { color: @amber; }
+#custom-openai.critical { color: @red; }
+#custom-openai.stale { color: @muted; }
 #battery.warning { color: @amber; }
 #battery.critical:not(.charging), #temperature.critical { color: @red; }
 #tray { padding: 0 8px; }

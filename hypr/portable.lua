@@ -33,6 +33,9 @@ function M.nvidia_only()
 end
 
 function M.monitors()
+    -- Start with both pointer and keyboard focus on the desktop's main display.
+    -- If it is absent (e.g. on the laptop), Hyprland uses the first output.
+    hl.config({cursor = {default_monitor = "desc:Lenovo Group Limited LEN G24-10 U5B50RWY"}})
     hl.monitor({output = "", mode = "preferred", position = "auto", scale = "auto"})
     -- Match physical displays, never generic DP connector numbers.
     hl.monitor({output = "desc:Hewlett Packard HP 22es 3CM7170H8J",

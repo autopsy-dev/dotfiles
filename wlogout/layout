@@ -1,6 +1,6 @@
 {
     "label" : "lock",
-    "action" : "\"${XDG_CONFIG_HOME:-$HOME/.config}/hypr/scripts/lock\"",
+    "action" : "${XDG_CONFIG_HOME:-$HOME/.config}/hypr/scripts/lock",
     "text" : "Lock",
     "keybind" : "l"
 }

@@ -331,6 +331,7 @@ bindd("", "XF86AudioPrev", "Previous track", hl.dsp.exec_cmd("playerctl previous
 hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd("brightnessctl s +5%"), { locked = true, repeating = true, description = "Increases brightness 5%" })
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl s 5%-"), { locked = true, repeating = true, description = "Decreases brightness 5%" })
 bindd("", "XF86PowerOff", "Open power menu", hl.dsp.exec_cmd("pkill wlogout || wlogout"))
+bindd("CTRL + ALT", "P", "Open power menu", hl.dsp.exec_cmd("pkill wlogout || wlogout"))
 bindd(mainMod, "L", "Lock the screen", hl.dsp.exec_cmd(lockCmd))
 bindd(mainMod, "O", "Reload/restarts Waybar", hl.dsp.exec_cmd("killall -SIGUSR2 waybar"))
 
@@ -342,6 +343,10 @@ for k, dir in pairs(directions) do
     -- Move within the layout, continuing onto an adjacent monitor at the edge.
     bindd(mainMod .. " + CTRL", k, "Move active window " .. dir,
         hl.dsp.window.move({ direction = dir:sub(1, 1) }))
+    -- Bypass layout movement for an explicit monitor transfer. Unlike a
+    -- directional layout move, this also handles floating/fullscreen windows.
+    bindd(mainMod .. " + ALT", k, "Move active window to monitor " .. dir .. " and follow",
+        hl.dsp.window.move({ monitor = dir:sub(1, 1), follow = true }))
     -- Move focus with mainMod + arrow keys
     bindd(mainMod, k, "Move focus " .. dir, hl.dsp.focus({ direction = dir }))
 end
@@ -440,6 +445,9 @@ hl.window_rule({ match = { class = "^(org.mozilla.firefox)$" },  no_blur = true,
 
 -- Kalk
 hl.window_rule({ match = { class = "^(org.kde.kalk)$" }, float = true })
+
+-- Android Emulator (Flutter development)
+hl.window_rule({ match = { class = "^Emulator$" }, float = true })
 
 -- Dialogs & popups
 hl.window_rule({ match = { class = "^(xdg-desktop-portal-gtk)$" }, float = true })

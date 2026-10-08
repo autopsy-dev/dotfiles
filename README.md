@@ -23,6 +23,16 @@ Personal configuration files for my Hyprland setup on CachyOS.
 | `fontconfig/` | Font rendering rules |
 | `boot/` | Portable rEFInd Calm theme and graphical LUKS unlock installer |
 
+## OpenAI usage widget
+
+Waybar's `custom/openai` runs `waybar/modules/openai.py`, showing ChatGPT usage
+and reset countdowns. Requires Python 3 and a ChatGPT login via `codex login`.
+Credentials stay in `~/.codex/auth.json`; credentials and usage caches are not
+part of these dotfiles. The logo font is bundled in `waybar/fonts/` and loaded
+by `fontconfig/fonts.conf`. After installing, run `fc-cache -f` and restart Waybar.
+
+See [waybar/modules/openai.README.md](waybar/modules/openai.README.md) for details.
+
 ## Graphical disk unlock and rEFInd
 
 The `boot/` folder contains portable sources and theme assets. Syncing uploads
