@@ -55,43 +55,78 @@ To publish only these boot sources and the shared README/install/sync scripts,
 without uploading local desktop folders or screenshots:
 
 ```bash
-./update-dotfiles.sh --boot-only "Add portable graphical unlock and rEFInd"
+bash ~/.config/dotfiles.sh update --boot-only "Add portable graphical unlock and rEFInd"
 ```
 
 Boot-only commits use your GitHub handle and its noreply email address.
 
-## Usage
+## Dotfiles wizard
 
-To install the version currently on GitHub:
-
-```bash
-./install-dotfiles.sh
-```
-
-Requires `git` and `rsync`. The installer downloads the repository's default
-branch and asks you to type `yes` before replacing the included config folders.
-**This overwrites local changes, including changes not saved to GitHub, and
-removes files absent from the repository inside those folders. Save unsaved
-editor changes before running it.** Existing files are backed up under
-`~/.config/dotfiles-backups/` (or `$XDG_CONFIG_HOME/dotfiles-backups/`). Other
-config folders and existing Git checkouts are left alone. System packages are
-not installed. Public repositories need no GitHub token; private repositories
-can use your Git credentials, `GITHUB_TOKEN`, or the sync script's saved token.
-
-The sync script uploads `backgrounds/`, and the installer checks that both
-`dark-cozy-landscape.png` and `dark-cozy-portrait.png` are present before changing
-your configs. Hyprland selects the appropriate wallpaper for each monitor when
-you log in. This requires `swaybg` and Python 3. Run `update-dotfiles.sh` on the
-configured PC first to publish the wallpaper files and updated scripts.
-
-`update-dotfiles.sh` handles both syncing and restoring configs:
+Run the friendly menu to install from GitHub, upload this computer's configs,
+or publish only the portable boot sources:
 
 ```bash
-./update-dotfiles.sh              # prompts for commit message
-./update-dotfiles.sh "my message" # or pass it directly
+bash ~/.config/dotfiles.sh
 ```
 
-- If a config directory exists in `~/.config/`, it is synced to the repo and pushed.
-- If a config directory is **missing** from `~/.config/` but exists in the repo, it is automatically restored from the repo.
+### Install on a new computer with curl
 
-Requires a GitHub personal access token with `repo` scope — you'll be prompted on first run and the token is saved to `~/.config/.dotfiles_github_token`.
+Run as your **regular user**, not with `sudo`. Requires `curl`, `git`, and
+`rsync`; desktop packages are not installed automatically.
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/autopsy-dev/dotfiles/main/dotfiles.sh | bash
+```
+
+Choose **1 (Install / restore)**. The wizard downloads the repository's default
+branch, shows what it will replace, and asks you to type `yes`. Prompts read
+from your terminal, so they work even when the script is piped into Bash.
+Public installs do not need a GitHub token.
+
+**This runs code downloaded from GitHub.** For a safer review-first workflow:
+
+```bash
+curl -fSL https://raw.githubusercontent.com/autopsy-dev/dotfiles/main/dotfiles.sh -o dotfiles.sh
+less dotfiles.sh
+bash dotfiles.sh install
+```
+
+Existing configs, wizard scripts, and README are backed up under
+`${XDG_CONFIG_HOME:-$HOME/.config}/dotfiles-backups/` before replacement.
+Save open editor buffers first. Other config folders and existing Git checkouts
+are left alone. The wizard installs itself in your config folder for next time.
+Restart affected applications or log back into Hyprland afterward; boot settings
+still require the separate, explicit boot installation described above.
+
+The installer checks that the landscape and portrait wallpapers are present
+before changing your configs. Hyprland selects the right wallpaper per monitor
+when you log in; this requires `swaybg` and Python 3. The OpenAI logo font cache
+is refreshed automatically when `fc-cache` is available.
+
+### Upload changes
+
+```bash
+bash ~/.config/dotfiles.sh update "fixes"
+bash ~/.config/dotfiles.sh update --boot-only "Update portable boot sources"
+```
+
+- Shows the source, destination, and folders, then asks before preparing an upload.
+- If the checkout has uncommitted changes, offers to **stash tracked and new files**
+  or cancel. No changes are discarded. The stash is retained, not automatically
+  reapplied; checkout-only edits are not uploaded unless you copy them into your
+  active config folder first.
+- Pulls the latest repository version, syncs your active configs, shows the changes,
+  and asks before committing and pushing. Missing local folders are restored from
+  the checkout when available.
+- Existing Git credentials work. Alternatively, enter a GitHub token when prompted
+  and optionally save it with owner-only permissions. Tokens are not put in Git URLs.
+- Review desktop configs for private data before uploading. The portable boot check
+  scans the boot sources and shared scripts/README, **not all desktop folders**.
+
+The old `./install-dotfiles.sh` and `./update-dotfiles.sh "message"` commands
+still work as shortcuts to the same wizard. Config paths respect `XDG_CONFIG_HOME`;
+`DOTFILES_DIR` overrides the upload checkout and `DOTFILES_REPO_URL` selects a
+different repository. Run `bash ~/.config/dotfiles.sh --help` for usage.
+
+**Publish the new wizard from the configured PC first** using the upload command
+above. The curl command is available only after `dotfiles.sh` reaches GitHub.
