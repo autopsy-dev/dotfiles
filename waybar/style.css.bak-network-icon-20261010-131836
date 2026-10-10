@@ -23,23 +23,6 @@ tooltip {
 }
 tooltip label { color: @text; }
 
-/* click menu popup (see network_menu.xml) */
-menu {
-    background: @surface;
-    color: @text;
-    border: 1px solid @border;
-    border-radius: 10px;
-    padding: 8px;
-}
-menuitem {
-    background: transparent;
-    border: 1px solid transparent;
-    border-radius: 6px;
-    padding: 4px 10px;
-}
-menuitem:hover, menuitem:selected { background: @forest; color: @amber; border-color: alpha(@amber, 0.45); }
-separator { min-height: 4px; }
-
 #workspaces { padding: 3px 6px; }
 #workspaces button {
     color: @muted;
@@ -69,8 +52,6 @@ separator { min-height: 4px; }
 #clock { color: @text; }
 #cpu, #memory, #custom-storage { color: @sage; }
 #wireplumber, #custom-power { color: @amber; }
-#network { color: @blue; }
-#network.disconnected, #network.disabled { color: @red; }
 #custom-weather, #custom-screenshot_t { color: @teal; }
 #custom-openai { padding: 0 8px; min-width: 34px; color: @sage; }
 #custom-openai.warning { color: @amber; }
