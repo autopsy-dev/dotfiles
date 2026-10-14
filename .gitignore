@@ -1,8 +1,20 @@
-
 .claude/
-
 nohup.out
-
 *.log
-
 fish_variables
+
+# Local backup files and folders (also excluded by dotfiles.sh when syncing).
+*.bak*
+*.backup
+*.backup-*
+*.old
+*.orig
+*~
+backup/
+backups/
+backup-*/
+backups-*/
+*-backup/
+*-backups/
+*-backup-*/
+*-backups-*/

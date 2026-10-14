@@ -14,7 +14,17 @@ TRACKED_DIRS=(
 # Preserve the old installer's optional folders without expanding the upload
 # allowlist (GTK folders, for example, can contain private bookmarks).
 INSTALLABLE_DIRS=("${TRACKED_DIRS[@]}" alacritty gtk-3.0 gtk-4.0 themes)
-SHARED_FILES=(dotfiles.sh install-dotfiles.sh update-dotfiles.sh README.md)
+SHARED_FILES=(dotfiles.sh install-dotfiles.sh update-dotfiles.sh README.md .gitignore)
+# Keep these patterns aligned with the backup section in .gitignore. rsync must
+# filter backups too: Git ignore rules alone do not remove already tracked files.
+BACKUP_EXCLUDES=(
+    '--exclude=*.bak*' '--exclude=*.backup' '--exclude=*.backup-*'
+    '--exclude=*.old' '--exclude=*.orig' '--exclude=*~'
+    '--exclude=backup/' '--exclude=backups/'
+    '--exclude=backup-*/' '--exclude=backups-*/'
+    '--exclude=*-backup/' '--exclude=*-backups/'
+    '--exclude=*-backup-*/' '--exclude=*-backups-*/'
+)
 WORK_DIR=''
 BOOT_ONLY=0
 COMMIT_MSG=''
@@ -185,7 +195,7 @@ WARNING
     for directory in "${install_dirs[@]}"; do
         printf 'Installing %s...\n' "$directory"
         mkdir -p -- "$CONFIG_DIR/$directory"
-        rsync -a --delete -- "$WORK_DIR/repo/$directory/" "$CONFIG_DIR/$directory/"
+        rsync -a --delete "${BACKUP_EXCLUDES[@]}" -- "$WORK_DIR/repo/$directory/" "$CONFIG_DIR/$directory/"
     done
     for file in "${SHARED_FILES[@]}"; do
         rsync -a -- "$WORK_DIR/repo/$file" "$CONFIG_DIR/$file"
@@ -231,6 +241,7 @@ update_configs() {
     printf 'Folders to sync (when present):\n'
     printf '  %s\n' "${sync_dirs[@]}"
     echo 'Shared wizard scripts and README are also uploaded.'
+    echo 'Backup files and folders are excluded; old checkout copies are removed.'
     if (( ! BOOT_ONLY )); then
         echo 'The screenshot is uploaded when present.'
     fi
@@ -307,16 +318,17 @@ STASH
             if [[ -d "$dst" ]]; then
                 printf 'Restoring missing %s from the checkout...\n' "$directory"
                 mkdir -p -- "$src"
-                rsync -a -- "$dst/" "$src/"
+                rsync -a "${BACKUP_EXCLUDES[@]}" -- "$dst/" "$src/"
+            else
+                continue
             fi
-            continue
         fi
         printf 'Syncing %s...\n' "$directory"
         mkdir -p -- "$dst"
         if [[ "$directory" == boot ]]; then
-            rsync -a --delete --delete-excluded --exclude='__pycache__/' --exclude='*.pyc' -- "$src/" "$dst/"
+            rsync -a --delete --delete-excluded "${BACKUP_EXCLUDES[@]}" --exclude='__pycache__/' --exclude='*.pyc' -- "$src/" "$dst/"
         else
-            rsync -a --delete -- "$src/" "$dst/"
+            rsync -a --delete --delete-excluded "${BACKUP_EXCLUDES[@]}" -- "$src/" "$dst/"
         fi
     done
     # Also check restored boot sources before staging them.

@@ -118,6 +118,11 @@ bash ~/.config/dotfiles.sh update --boot-only "Update portable boot sources"
 - Pulls the latest repository version, syncs your active configs, shows the changes,
   and asks before committing and pushing. Missing local folders are restored from
   the checkout when available.
+- Backup files (`*.bak*`, `*.backup*`, `*.old`, `*.orig`, `*~`) and backup folders
+  (including `gpu-backup-*`, `theme-backups`, and `dotfiles-backups`) are excluded
+  from syncing and Git. Previously uploaded backups are removed from the current
+  checkout on the next full upload; older Git history is not rewritten. New local
+  install backups are still created normally.
 - Existing Git credentials work. Alternatively, enter a GitHub token when prompted
   and optionally save it with owner-only permissions. Tokens are not put in Git URLs.
 - Review desktop configs for private data before uploading. The portable boot check
